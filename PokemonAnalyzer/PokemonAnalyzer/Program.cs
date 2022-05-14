@@ -17,38 +17,16 @@ namespace PokemonAnalyzer
 			PokemonListQuery pokemonListQuery = WebRequestManager.GetPokemonList(limit, offset);
 			List<PokemonData> pokemonDataList = GetPokemonDataList(pokemonListQuery.results);
 			
-			GetAvgHeightAndWeight(pokemonDataList, out double avgHeight, out double avgWeight);
+			Console.WriteLine($"Download took {stopwatch.Elapsed.TotalSeconds} seconds.");
+
+			PokemonAnalysisData analysis = new PokemonAnalysisData(pokemonDataList);
 			
-			Console.WriteLine($"Avg Height: {Math.Round(avgHeight,1)}m");
-			Console.WriteLine($"Avg Weight: {Math.Round(avgWeight,1)}Kg");
+			Console.WriteLine($"Avg Height: {Math.Round(analysis.AvgHeight,1)}m");
+			Console.WriteLine($"Avg Weight: {Math.Round(analysis.AvgWeight,1)}Kg");
 
 			Console.WriteLine($"Program took {stopwatch.Elapsed.TotalSeconds} seconds.");
 		}
 		
-				
-		/// <summary>
-		/// Calculates the average height and weight of all pokemon in a list of <see cref="PokemonData"/>. 
-		/// Note that Weight comes back from the PokeAPI in hectograms (kg/10)
-		/// and height comes back from the PokeAPI in decimeters (meters/10)
-		/// </summary>
-		/// <returns>Height in Meters and weight in Kg.</returns>
-		static void GetAvgHeightAndWeight(List<PokemonData> pokemonDataList, out double avgHeight, out double avgWeight)
-		{
-			Stopwatch stopwatch = Stopwatch.StartNew();
-			
-			int heightAccumulator = 0;
-			int weightAccumulator = 0;
-			
-			foreach (PokemonData data in pokemonDataList)
-			{
-				heightAccumulator += data.height;
-				weightAccumulator += data.weight;
-			}
-
-			avgHeight = heightAccumulator / (10.0 * pokemonDataList.Count);
-			avgWeight = weightAccumulator / (10.0 * pokemonDataList.Count);
-			//Console.WriteLine($"Calculating avg height and weight took: {stopwatch.Elapsed.TotalSeconds} seconds");
-		}
 
 		private static List<PokemonData> GetPokemonDataList(List<PokemonEntry> pokemonEntries)
 		{
