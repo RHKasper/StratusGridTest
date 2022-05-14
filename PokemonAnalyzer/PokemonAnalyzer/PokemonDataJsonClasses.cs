@@ -193,7 +193,7 @@ namespace PokemonAnalyzer
 
     public class Move
     {
-        public Move move { get; set; }
+        public Move2 move { get; set; }
         public List<VersionGroupDetail> version_group_details { get; set; }
     }
 
@@ -316,7 +316,7 @@ namespace PokemonAnalyzer
     {
         public int base_stat { get; set; }
         public int effort { get; set; }
-        public Stat stat { get; set; }
+        public Stat2 stat { get; set; }
     }
 
     public class Stat2
@@ -328,7 +328,7 @@ namespace PokemonAnalyzer
     public class Type
     {
         public int slot { get; set; }
-        public Type type { get; set; }
+        public Type2 type { get; set; }
     }
 
     public class Type2

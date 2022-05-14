@@ -21,8 +21,16 @@ namespace PokemonAnalyzer
 
 			PokemonAnalysisData analysis = new PokemonAnalysisData(pokemonDataList);
 			
-			Console.WriteLine($"Avg Height: {Math.Round(analysis.AvgHeight,1)}m");
-			Console.WriteLine($"Avg Weight: {Math.Round(analysis.AvgWeight,1)}Kg");
+			Console.WriteLine($"Average Height: {Math.Round(analysis.AvgHeight,1)}m");
+			Console.WriteLine($"Average Weight: {Math.Round(analysis.AvgWeight,1)}Kg");
+			Console.WriteLine();
+
+			foreach (string typeName in analysis.AvgHeightByType.Keys)
+			{
+				Console.WriteLine($"Average {typeName}-Type Height: {Math.Round(analysis.AvgHeightByType[typeName],1)}m");
+				Console.WriteLine($"Average {typeName}-Type Weight: {Math.Round(analysis.AvgWeightByType[typeName],1)}Kg");
+				Console.WriteLine();
+			}
 
 			Console.WriteLine($"Program took {stopwatch.Elapsed.TotalSeconds} seconds.");
 		}
