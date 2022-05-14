@@ -15,7 +15,9 @@ namespace PokemonAnalyzer
 			int offset = Convert.ToInt32(args[1]);
 			
 			PokemonListQuery pokemonListQuery = WebRequestManager.GetPokemonList(limit, offset);
-			GetAvgHeightAndWeight(pokemonListQuery.results, out double avgHeight, out double avgWeight);
+			List<PokemonData> pokemonDataList = GetPokemonDataList(pokemonListQuery.results);
+			
+			GetAvgHeightAndWeight(pokemonDataList, out double avgHeight, out double avgWeight);
 			
 			Console.WriteLine($"Avg Height: {Math.Round(avgHeight,1)}m");
 			Console.WriteLine($"Avg Weight: {Math.Round(avgWeight,1)}Kg");
@@ -30,22 +32,30 @@ namespace PokemonAnalyzer
 		/// and height comes back from the PokeAPI in decimeters (meters/10)
 		/// </summary>
 		/// <returns>Height in Meters and weight in Kg.</returns>
-		static void GetAvgHeightAndWeight(List<PokemonEntry> pokemonEntries, out double avgHeight, out double avgWeight)
+		static void GetAvgHeightAndWeight(List<PokemonData> pokemonDataList, out double avgHeight, out double avgWeight)
 		{
-			var pokemonUriList = pokemonEntries.Select(d => d.url).ToList();
+			Stopwatch stopwatch = Stopwatch.StartNew();
 			
 			int heightAccumulator = 0;
 			int weightAccumulator = 0;
 			
-			var pokemonDataList = WebRequestManager.GetPokemonDataCollection(pokemonUriList);
 			foreach (PokemonData data in pokemonDataList)
 			{
 				heightAccumulator += data.height;
 				weightAccumulator += data.weight;
 			}
 
-			avgHeight = heightAccumulator / (10.0 * pokemonEntries.Count);
-			avgWeight = weightAccumulator / (10.0 * pokemonEntries.Count);
+			avgHeight = heightAccumulator / (10.0 * pokemonDataList.Count);
+			avgWeight = weightAccumulator / (10.0 * pokemonDataList.Count);
+			//Console.WriteLine($"Calculating avg height and weight took: {stopwatch.Elapsed.TotalSeconds} seconds");
+		}
+
+		private static List<PokemonData> GetPokemonDataList(List<PokemonEntry> pokemonEntries)
+		{
+			// Get data from web api
+			var pokemonUriList = pokemonEntries.Select(d => d.url).ToList();
+			var pokemonDataList = WebRequestManager.GetPokemonDataCollection(pokemonUriList);
+			return pokemonDataList;
 		}
 	}
 }

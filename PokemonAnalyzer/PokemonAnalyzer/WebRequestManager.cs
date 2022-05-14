@@ -8,6 +8,9 @@ using NUnit.Framework;
 
 namespace PokemonAnalyzer
 {
+	/// <summary>
+	/// Takes care of all web access to the PokeAPI
+	/// </summary>
 	public class WebRequestManager
 	{
 		private const string PokeApi = "https://pokeapi.co/api/v2";
@@ -34,7 +37,7 @@ namespace PokemonAnalyzer
 			{
 				PokemonData result = RequestJsonObject<PokemonData>(uri);
 				dataCollection.Add(result);
-				Console.WriteLine($"Got #{result.id}: {result.name}");
+				//Console.WriteLine($"Got #{result.id}: {result.name}");
 			});
 			
 			return dataCollection;
