@@ -11,22 +11,21 @@ namespace PokemonAnalyzer
 		static void Main(string[] args)
 		{
 			Stopwatch stopwatch = Stopwatch.StartNew();
-			
+		
 			int limit = Convert.ToInt32(args[0]);
 			int offset = Convert.ToInt32(args[1]);
 			
-			Console.WriteLine("Limit: " + limit + ". Offset: " + offset);
 			RequestPokemonData(limit, offset);
-			
+
 			Console.WriteLine($"Program took {stopwatch.Elapsed.TotalSeconds} seconds.");
 			Console.WriteLine("Press enter exit");
 			Console.Read();
 		}
 
-		static void RequestPokemonData(int limit, int offset)
+		static string RequestPokemonData(int limit, int offset)
 		{
 			string uri = $"{PokeApi}/pokemon?limit={limit}&offset={offset}";
-			Console.WriteLine(RunWebRequest(uri));
+			return RunWebRequest(uri);
 		}
 		
 		
