@@ -39,7 +39,6 @@ namespace PokemonAnalyzer
 
 		private static List<PokemonData> GetPokemonDataList(List<PokemonEntry> pokemonEntries)
 		{
-			// Get data from web api
 			var pokemonUriList = pokemonEntries.Select(d => d.url).ToList();
 			var pokemonDataList = WebRequestManager.GetPokemonDataCollection(pokemonUriList);
 			return pokemonDataList;

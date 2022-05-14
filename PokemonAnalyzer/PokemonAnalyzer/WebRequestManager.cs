@@ -51,7 +51,7 @@ namespace PokemonAnalyzer
 		}
 		
 
-		// Todo: find the source of this code. I got it from my BeatSaberUnzipper project, and unfortunately didn't save the link to the source
+		// Todo: find the source of this code. I got it from my BeatSaberUnzipper project and unfortunately didn't save the link to the source
 		public static string RunWebRequest(string uri)
 		{
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);

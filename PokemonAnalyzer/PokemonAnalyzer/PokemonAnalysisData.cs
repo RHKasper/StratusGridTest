@@ -6,12 +6,30 @@ namespace PokemonAnalyzer
 {
 	public class PokemonAnalysisData
 	{
+		/// <summary>
+		/// Average Height in Meters
+		/// </summary>
 		public double AvgHeight;
+		
+		/// <summary>
+		/// Average Weight in Kg
+		/// </summary>
 		public double AvgWeight;
 
+		/// <summary>
+		/// Average Height by Pokemon type in Meters
+		/// </summary>
 		public Dictionary<string, double> AvgHeightByType;
+		
+		/// <summary>
+		/// Average Weight by Pokemon type in Kg
+		/// </summary>
 		public Dictionary<string, double> AvgWeightByType;
 
+		
+		/// <summary>
+		/// Evaluate PokemonListData to calculate average height and weight for all Pokemon, and for each type
+		/// </summary>
 		public PokemonAnalysisData(List<PokemonData> pokemonDataList)
 		{
 			Stopwatch stopwatch = Stopwatch.StartNew();
