@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace PokemonAnalyzer
 {
@@ -15,18 +16,31 @@ namespace PokemonAnalyzer
 			int limit = Convert.ToInt32(args[0]);
 			int offset = Convert.ToInt32(args[1]);
 			
-			RequestPokemonData(limit, offset);
+			PokemonListQuery pokemonListQuery = RequestPokemonList(limit, offset);
+			PokemonData pokemonData = RequestJsonObject<PokemonData>(pokemonListQuery.results[0].url);
+
+			Console.WriteLine($"{pokemonData.name}\nHeight: {pokemonData.height} Weight: {pokemonData.weight}");
+			
 
 			Console.WriteLine($"Program took {stopwatch.Elapsed.TotalSeconds} seconds.");
 			Console.WriteLine("Press enter exit");
 			Console.Read();
 		}
 
-		static string RequestPokemonData(int limit, int offset)
+		static PokemonListQuery RequestPokemonList(int limit, int offset)
 		{
 			string uri = $"{PokeApi}/pokemon?limit={limit}&offset={offset}";
-			return RunWebRequest(uri);
+			return RequestJsonObject<PokemonListQuery>(uri);
 		}
+
+		static T RequestJsonObject<T>(string uri)
+		{
+			string rawJson = RunWebRequest(uri);
+			T deserializedObject = JsonConvert.DeserializeObject<T>(rawJson);
+			return deserializedObject;
+		}
+		
+		
 		
 		
 		// Todo: find the source of this code. I got it from my BeatSaberUnzipper project, and unfortunately didn't save the link to the source
