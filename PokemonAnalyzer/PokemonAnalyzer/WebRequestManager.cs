@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -8,10 +11,33 @@ namespace PokemonAnalyzer
 	public class WebRequestManager
 	{
 		private const string PokeApi = "https://pokeapi.co/api/v2";
-		public static PokemonListQuery RequestPokemonList(int limit, int offset)
+		
+		public static PokemonListQuery GetPokemonList(int limit, int offset)
 		{
 			string uri = $"{PokeApi}/pokemon?limit={limit}&offset={offset}";
 			return RequestJsonObject<PokemonListQuery>(uri);
+		}
+		
+		/// <summary>
+		/// Gets a list of PokemonData from the PokeAPI in parallel
+		/// based on this answer: https://stackoverflow.com/a/4278002/9398033
+		/// </summary>
+		/// <param name="uris"></param>
+		/// <returns></returns>
+		public static List<PokemonData> GetPokemonDataCollection(List<string> uris)
+		{
+			ParallelOptions parallelOptions = new ParallelOptions();
+			parallelOptions.MaxDegreeOfParallelism = 1000;
+			List<PokemonData> dataCollection = new List<PokemonData>(uris.Count);
+			
+			Parallel.ForEach(uris, parallelOptions, uri =>
+			{
+				PokemonData result = RequestJsonObject<PokemonData>(uri);
+				dataCollection.Add(result);
+				Console.WriteLine($"Got #{result.id}: {result.name}");
+			});
+			
+			return dataCollection;
 		}
 		
 		public static T RequestJsonObject<T>(string uri)
@@ -20,6 +46,7 @@ namespace PokemonAnalyzer
 			T deserializedObject = JsonConvert.DeserializeObject<T>(rawJson);
 			return deserializedObject;
 		}
+		
 
 		// Todo: find the source of this code. I got it from my BeatSaberUnzipper project, and unfortunately didn't save the link to the source
 		public static string RunWebRequest(string uri)
@@ -48,7 +75,7 @@ namespace PokemonAnalyzer
 		[Test]
 		public static void TestRequestPokemonList()
 		{
-			PokemonListQuery pokemonList = RequestPokemonList(1, 0);
+			PokemonListQuery pokemonList = GetPokemonList(1, 0);
 			Assert.IsTrue(pokemonList.results[0].name == "bulbasaur");
 		}
 
