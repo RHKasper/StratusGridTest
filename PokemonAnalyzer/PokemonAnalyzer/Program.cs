@@ -14,6 +14,8 @@ namespace PokemonAnalyzer
 			int limit = args.Length > 0 ? Convert.ToInt32(args[0]) : 1000000;
 			int offset = args.Length > 1 ? Convert.ToInt32(args[1]) : 0;
 			
+			Console.WriteLine($"Downloading pokemon data from PokeAPI. limit = {limit}; offset = {offset}");
+			
 			PokemonListQuery pokemonListQuery = WebRequestManager.GetPokemonList(limit, offset);
 			List<PokemonData> pokemonDataList = GetPokemonDataList(pokemonListQuery.results);
 			
@@ -34,7 +36,9 @@ namespace PokemonAnalyzer
 			}
 
 			Console.WriteLine($"\nProgram took {stopwatch.Elapsed.TotalSeconds} seconds.");
-			Console.ReadKey();
+			
+			Console.WriteLine("Press Enter to exit");
+			Console.ReadLine();
 		}
 		
 
