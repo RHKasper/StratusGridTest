@@ -1,6 +1,4 @@
 # Stratus Grid Technical Assessment
-
-## Overview
 This is a small CLI app written in C# to download stats about Pokémon from https://pokeapi.co/ and calculate average heights and weights.
 
 ## How to Run
@@ -23,6 +21,9 @@ I considered also parallelizing local data processing and potentially starting t
 
 ## Unit Tests
 Two Unit Tests for network and deserialization code can be found in the PokemonAnalyzer/UnitTests.cs file.
+
+## Limitations & Issues
+I intended to make this app self-contained, but when I changed the project settings to do this, it caused issues with the unit tests that I was unable to solve.
 
 ## References
 https://medium.com/swlh/build-a-command-line-interface-cli-program-with-net-core-428c4c85221
