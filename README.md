@@ -5,8 +5,9 @@ This is a small CLI app written in C# to download stats about Pokémon from http
 
 ## How to Run
 - Ensure you have .NET 5.0 installed as this app is Framework-Depedent.
-- open your favorite command line interface (CLI) and navigate to `C:\repos\StratusGridTest\PokemonAnalyzer\PokemonAnalyzer\bin\Debug\net5.0\`
-- run PokemonAnalyzer.exe with 2 int parameters, limit & offset.
+- Download the repository
+- Open your favorite command line interface (CLI) and navigate to `PokemonAnalyzer\PokemonAnalyzer\bin\Debug\net5.0\` within the downloaded repository
+- Run PokemonAnalyzer.exe with 2 int parameters, limit & offset.
 
 ## Expected Results
 After you run PokemonAnalyzer.exe, you should see a message indicating download has begun, wait roughly 4 seconds, then see the following output:
