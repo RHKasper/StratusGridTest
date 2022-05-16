@@ -65,23 +65,5 @@ namespace PokemonAnalyzer
 				return reader.ReadToEnd();
 			}
 		}
-
-		#region Tests
-		
-		[Test]
-		public static void TestPokemonDataRequest()
-		{
-			PokemonData pokemonData = RequestJsonObject<PokemonData>("https://pokeapi.co/api/v2/pokemon/2/");
-			Assert.IsTrue(pokemonData.name == "ivysaur");
-		}
-		
-		[Test]
-		public static void TestRequestPokemonList()
-		{
-			PokemonListQuery pokemonList = GetPokemonList(1, 0);
-			Assert.IsTrue(pokemonList.results[0].name == "bulbasaur");
-		}
-
-		#endregion
 	}
 }
