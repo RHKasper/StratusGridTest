@@ -10,9 +10,9 @@ namespace PokemonAnalyzer
 		static void Main(string[] args)
 		{
 			Stopwatch stopwatch = Stopwatch.StartNew();
-		
-			int limit = Convert.ToInt32(args[0]);
-			int offset = Convert.ToInt32(args[1]);
+			
+			int limit = args.Length > 0 ? Convert.ToInt32(args[0]) : 1000000;
+			int offset = args.Length > 1 ? Convert.ToInt32(args[1]) : 0;
 			
 			PokemonListQuery pokemonListQuery = WebRequestManager.GetPokemonList(limit, offset);
 			List<PokemonData> pokemonDataList = GetPokemonDataList(pokemonListQuery.results);
@@ -34,6 +34,7 @@ namespace PokemonAnalyzer
 			}
 
 			Console.WriteLine($"\nProgram took {stopwatch.Elapsed.TotalSeconds} seconds.");
+			Console.ReadKey();
 		}
 		
 
