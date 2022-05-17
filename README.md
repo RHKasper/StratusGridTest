@@ -2,9 +2,9 @@
 This is a small CLI app written in C# to download stats about Pokémon from https://pokeapi.co/ and calculate average heights and weights.
 
 ## How to Run
-- Ensure you have .NET 5.0 installed as this app is Framework-Depedent.
+- Ensure you have .NET 6.0 installed as this app is Framework-Depedent.
 - Download the repository
-- Open your favorite command line interface (CLI) and navigate to `PokemonAnalyzer\PokemonAnalyzer\bin\Debug\net5.0\` within the downloaded repository
+- Open your favorite command line interface (CLI) and navigate to `PokemonAnalyzer\PokemonAnalyzer\bin\Debug\net6.0\` within the downloaded repository
 - Run PokemonAnalyzer.exe with 2 int parameters, limit & offset.
 
 ## Expected Results

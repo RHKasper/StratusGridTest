@@ -39,7 +39,7 @@ namespace PokemonAnalyzer
 			}
 			catch
 			{
-				Console.WriteLine("Downlaoding or processing data failed");
+				Console.WriteLine("Downloading or processing data failed");
 				throw;
 			}
 
