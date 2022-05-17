@@ -19,6 +19,8 @@ I began by downloading each Pokémon's data sequentially, but quickly realized t
 
 I considered also parallelizing local data processing and potentially starting those calculations before all downloads finished, but after timing it and finding an execution time of roughly .004 seconds (.1% of the total run time), I decided not to. In a context with more computationally intensive analysis, I would likely do so.
 
+I considered caching web request results, but chose not to since I don't expect this app to be run more than a few times.
+
 ## Unit Tests
 Two Unit Tests for network and deserialization code can be found in the PokemonAnalyzer/UnitTests.cs file.
 
